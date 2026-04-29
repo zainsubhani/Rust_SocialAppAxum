@@ -25,3 +25,11 @@ pub async fn get_all (pg:&PgPool) -> Result<Vec<User>> , sqlx::Error> {
 pub async fn get_by_username (pg:&PgPool ,username : &str ) -> Result<Vec<User>> , sqlx::Error> {
     sqlx::query_as!(User,"SELECT * from user ORDER BY username=$1 ",username).fetch_optional(pg).await
 }
+
+pub async fn create(pg:&PgPool,input:CreateUser)->Result<User,sqlx::Error>{
+    sqlx::query_as!(
+        User,"
+        INSERT INTO users {username , display_name } VALUES ($1,$2) RETURNING *
+        ", input.username, input.display_name
+    ).fetch_one(pg).await
+}
