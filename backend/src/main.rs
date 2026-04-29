@@ -1,3 +1,5 @@
+use axum::Json;
+
 fn main() {
-    println!("Hello, world!");
+    let _ = Json(());
 }
