@@ -106,4 +106,4 @@ pub async fn delete(pg: &PgPool, tweet_id: Uuid) -> Result<u64, sqlx::Error> {
         .await?;
 
     Ok(result.rows_affected())
-} 
+}
